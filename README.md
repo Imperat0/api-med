@@ -14,5 +14,5 @@ Dependências
 - Spring Validation
 - Flyway
 - MySql
-
+- JWT
  
