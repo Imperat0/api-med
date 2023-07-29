@@ -1,12 +1,11 @@
-package med.voll.apimed.pacientes;
+package med.voll.apimed.domain.pacientes;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.apimed.endereco.Endereco;
-import med.voll.apimed.medico.DadosAtualizacaoMedico;
+import med.voll.apimed.domain.endereco.Endereco;
 
 @Getter
 @EqualsAndHashCode(of = "id")
@@ -52,6 +51,10 @@ public class Paciente {
     }
 
     public void inativar() {
+        this.ativo = false;
+    }
+
+    public void excluir() {
         this.ativo = false;
     }
 }
