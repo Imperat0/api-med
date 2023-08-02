@@ -1,6 +1,8 @@
 package med.voll.apimed.domain.consulta;
 
 import med.voll.apimed.domain.ValidacaoException;
+import med.voll.apimed.domain.consulta.validacoes.agendamento.IValidadorAgendamentoConsulta;
+import med.voll.apimed.domain.consulta.validacoes.cancelamento.IValidadorCancelamentoConsulta;
 import med.voll.apimed.domain.medico.Medico;
 import med.voll.apimed.domain.medico.MedicoRepository;
 import med.voll.apimed.domain.pacientes.PacienteRepository;
@@ -21,10 +23,10 @@ public class AgendaDeConsultas {
     private PacienteRepository pacienteRepository;
 
     @Autowired
-    private List<IValidadorAgendamentoDeConsulta> validadoresAgendamento;
+    private List<IValidadorAgendamentoConsulta> validadorAgendamento;
 
     @Autowired
-    private List<IValidadorCancelamentoDeConsulta> validadoresCancelamento;
+    private List<IValidadorCancelamentoConsulta> validadorCancelamento;
 
     public DadosDetalhamentoConsulta agendar(DadosAgendamentoConsulta dados) {
 
@@ -36,7 +38,7 @@ public class AgendaDeConsultas {
             throw  new ValidacaoException("Id do medico informado não existe");
         }
 
-        validadoresAgendamento.forEach(v -> v.validar(dados));
+        validadorAgendamento.forEach(v -> v.validar(dados));
 
         var paciente = pacienteRepository.findById(dados.idPaciente()).get();
         var medico = escolherMedico(dados);
@@ -55,10 +57,9 @@ public class AgendaDeConsultas {
             throw new ValidacaoException("Id da consulta informado não existe!");
         }
 
-        validadoresCancelamento.forEach(v -> v.validar(dados));
-
+        validadorCancelamento.forEach(v -> v.validar(dados));
         var consulta = consultaRepository.getReferenceById(dados.idConsulta());
-        consulta.cancelar(dados.motivo());
+        consulta.cancelar(dados.motivoCancelamento());
     }
 
     private Medico escolherMedico(DadosAgendamentoConsulta dados) {

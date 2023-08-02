@@ -26,7 +26,7 @@ public class ConsultaController {
     @DeleteMapping
     @Transactional
     public ResponseEntity cancelar(@RequestBody @Valid DadosCancelamentoConsulta dadosCancelamentoConsulta) {
-        agendaDeConsultas.cacelar(dadosCancelamentoConsulta);
+        agenda.cancelar(dadosCancelamentoConsulta);
 
         return ResponseEntity.noContent().build();
     }
