@@ -15,4 +15,8 @@ Dependências
 - Flyway
 - MySql
 - JWT
- 
+
+Teste automatizados
+
+- MockMvc
+- JacksonTester
